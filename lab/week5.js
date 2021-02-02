@@ -23,7 +23,6 @@ function forecastHTML(dailyForecast) {
             <p class="text-gray-500">${dailyForecast.day.condition.text}</h1>
           </div>
         `
-
 }
 
 // You may want to write other functions, but you don't need to!
@@ -35,15 +34,18 @@ window.addEventListener('DOMContentLoaded', function () {
   // Your code ...
   document.querySelector('#chicago-forecast').addEventListener('click', async function (event) {
     event.preventDefault()
-    let response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=5fe3e51fbc45439d9b9215049210202&q=Chicago&days=3`)
+
+
+    let location = "Chicago"
+    let response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=5fe3e51fbc45439d9b9215049210202&q=${location}&days=3`)
     let json = await response.json()
-    let currentTemp = json.current.temp_f
 
 
-    document.querySelector('.forecast-header').insertAdjacentHTML("beforeend",
-      `
-        ${currentTemp}
-      `
-    )
+    let forecast = json.forecast.forecastday
+    for (let i = 0; i < forecast.length; i++) {
+      console.log(forecast[i]);
+      let dailyForecast = forecast[i]
+      document.querySelector(".forecast").insertAdjacentHTML("beforeend", forecastHTML(dailyForecast))
+    }
   })
 })
