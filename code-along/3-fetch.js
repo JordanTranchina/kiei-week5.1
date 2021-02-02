@@ -8,7 +8,7 @@
 window.addEventListener('DOMContentLoaded', function () {
   let url = 'https://api.coindesk.com/v1/bpi/currentprice/USD.json'
   let bitcoinForm = document.querySelector('.bitcoin-form')
-  bitcoinForm.addEventListener('submit', async function(event) {
+  bitcoinForm.addEventListener('submit', async function (event) {
     event.preventDefault()
 
     let response = await fetch(url)

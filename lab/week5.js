@@ -16,17 +16,34 @@
 
 function forecastHTML(dailyForecast) {
   return `
-    <div class="text-center space-y-2">
-      <img src="https:${dailyForecast.day.condition.icon}" class="mx-auto">
-      <h1 class="text-2xl text-bold text-gray-500">${dailyForecast.date}</h1>
-      <h2 class="text-xl">${dailyForecast.day.mintemp_f} - ${dailyForecast.day.maxtemp_f}</h2>
-      <p class="text-gray-500">${dailyForecast.day.condition.text}</h1>
-    </div>
-  `
+          <div class="text-center space-y-2">
+            <img src="https:${dailyForecast.day.condition.icon}" class="mx-auto">
+            <h1 class="text-2xl text-bold text-gray-500">${dailyForecast.date}</h1>
+            <h2 class="text-xl">${dailyForecast.day.mintemp_f} - ${dailyForecast.day.maxtemp_f}</h2>
+            <p class="text-gray-500">${dailyForecast.day.condition.text}</h1>
+          </div>
+        `
+
 }
 
 // You may want to write other functions, but you don't need to!
 // All your code can go inside of this event listener ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
-window.addEventListener('DOMContentLoaded', function() {
+
+
+
+window.addEventListener('DOMContentLoaded', function () {
   // Your code ...
+  document.querySelector('#chicago-forecast').addEventListener('click', async function (event) {
+    event.preventDefault()
+    let response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=5fe3e51fbc45439d9b9215049210202&q=Chicago&days=3`)
+    let json = await response.json()
+    let currentTemp = json.current.temp_f
+
+
+    document.querySelector('.forecast-header').insertAdjacentHTML("beforeend",
+      `
+        ${currentTemp}
+      `
+    )
+  })
 })
